@@ -49,7 +49,9 @@ function parity(x) {
  */
 
 // Don't worry - For JS: Use BigInt() as shown below! Long live JS!
+
 function parity_big_int(x) {
+  x = x ^ (x >> 64n);
   x = x ^ (x >> 32n);
   x = x ^ (x >> 16n);
   x = x ^ (x >> 8n);
@@ -61,10 +63,18 @@ function parity_big_int(x) {
 }
 
 //console.log(parity_brute(131321123451));
-console.log(parity_using_xor(2199023255551)); // wrong: returns 0
-console.log(parity(2199023255551)); // wrong: returns 0
-console.log(parity_big_int(BigInt(2199023255551)));
-console.log(parity_big_int(BigInt(288230376151711743))); // 58 1s (and it returns 1 - WTF!)
+//console.log(parity_using_xor(2199023255551)); // wrong: returns 0
+// console.log(parity(2199023255551)); // wrong: returns 0
+// console.log(parity_big_int(BigInt(2199023255551)));
+// REMEMBER to pass THE ARGUMENT AS BIGINT (WITH 'n' suffix)!!!
+console.log(parity_big_int(BigInt(288230376151711743n))); // 58 1s
+console.log(parity_big_int(BigInt(2361183241434822606847n))); // 71 1s  --> 1n (correct)
+console.log(parity_big_int(BigInt(590295810358705651711n))); // 69 1s  --> 1n (correct)
+console.log(parity_big_int(BigInt(295147905179352825855n))); // 68 1s  --> 0n (correct)
+console.log(parity_big_int(BigInt(4722366482869645213695n))); // 72 1s  --> 0n (correct)
+console.log(parity_big_int(BigInt(9444732965739290427391n))); // 73 1s  --> 0n (correct)
+console.log(parity_big_int(BigInt(1208925819614629174706175n))); // 80 1s  --> 0n (correct)
+console.log(parity_big_int(BigInt(2417851639229258349412351n))); // 81 1s  --> 1n (correct)
 
 // Tested using -
 // https://www.rapidtables.com/convert/number/decimal-to-binary.html (Binary/Decimal)
