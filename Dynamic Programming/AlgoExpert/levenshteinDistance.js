@@ -27,7 +27,7 @@ function levenshteinDistance(str1, str2) {
       } else {
         // if the last character is not same, check by deleting the last character from each of the strings
         // and see if the new last characters are same. (these are table[i-1][j] & table[i][j-1]
-        // else, delete both characters and see if the last new last characters are same. // table[i-1][j-1]
+        // else, update and make them equal // table[i-1][j-1]
         table[i][j] =
           1 +
           Math.min(
