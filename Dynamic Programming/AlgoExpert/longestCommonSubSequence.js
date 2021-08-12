@@ -47,7 +47,7 @@ function findSequence(str1, str2, m, n, table) {
   console.log(result.reverse());
 }
 
-let s1 = "abc";
-let s2 = "ac";
+let s1 = "abcd";
+let s2 = "amd";
 
 console.log(longestCommonSubsequence(s1, s2));
