@@ -26,11 +26,11 @@ function printList(head) {
   }
 }
 
-let l1 = createListFromArray([2, 4, 3]);
-let l2 = createListFromArray([5, 6, 4]);
-printList(l1);
-console.log("=========================");
-printList(l2);
+// let l1 = createListFromArray([2, 4, 3]);
+// let l2 = createListFromArray([5, 6, 4]);
+// printList(l1);
+// console.log("=========================");
+// printList(l2);
 
 module.exports = {
   ListNode,
