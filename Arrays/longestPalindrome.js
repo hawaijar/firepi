@@ -28,5 +28,5 @@ function longestPalindrome(s) {
   return result;
 }
 
-const s = "babad";
+const s = "good";
 console.log(longestPalindrome(s));
