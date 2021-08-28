@@ -1,5 +1,5 @@
 // i/p: [1, 2, 3, 4] o/p: true because we can make the equal subsets [1,4] & [2,3]
-function equalSumPartition(nums = []) {
+function equalSumPartitionMemoization(nums = []) {
   // base condition
   // if sum is odd, return false
   const s = nums.reduce((a, b) => a + b, 0);
@@ -24,11 +24,11 @@ function equalSumPartition(nums = []) {
   return recur(s / 2, 0);
 }
 console.log(
-  `Can partitioning be done: ---> ${equalSumPartition([1, 2, 3, 4])}`
+  `Can partitioning be done: ---> ${equalSumPartitionMemoization([1, 2, 3, 4])}`
 );
 console.log(
-  `Can partitioning be done: ---> ${equalSumPartition([1, 1, 3, 4, 7])}`
+  `Can partitioning be done: ---> ${equalSumPartitionMemoization([3, 3, 2])}`
 );
 console.log(
-  `Can partitioning be done: ---> ${equalSumPartition([2, 3, 4, 6])}`
+  `Can partitioning be done: ---> ${equalSumPartitionMemoization([1, 3, 4, 6])}`
 );
