@@ -2,6 +2,7 @@ class ListNode {
   constructor(val, next = null) {
     this.val = val;
     this.next = next;
+    this.value = val;
   }
 }
 function createListFromArray(array) {
@@ -21,7 +22,7 @@ function createListFromArray(array) {
 function printList(head) {
   let current = head;
   while (current) {
-    console.log(current.val);
+    console.log(current.val || current.value);
     current = current.next;
   }
 }
