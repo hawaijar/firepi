@@ -20,11 +20,13 @@ function createListFromArray(array) {
   return head;
 }
 function printList(head) {
+  const result = [];
   let current = head;
   while (current) {
-    console.log(current.val || current.value);
+    result.push(current.val || current.value);
     current = current.next;
   }
+  console.log(result);
 }
 
 // let l1 = createListFromArray([2, 4, 3]);
