@@ -1,6 +1,5 @@
 class ListNode {
   constructor(val, next = null) {
-    this.val = val;
     this.next = next;
     this.value = val;
   }
@@ -23,7 +22,7 @@ function printList(head) {
   const result = [];
   let current = head;
   while (current) {
-    result.push(current.val || current.value);
+    result.push(current.value);
     current = current.next;
   }
   console.log(result);
