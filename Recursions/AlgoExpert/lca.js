@@ -5,6 +5,27 @@ class OrgChart {
     this.directReports = [];
   }
 }
+
+// for binary trees
+function getLowestCommonManagerBinary(topManager, reportOne, reportTwo) {
+  function lca(root) {
+    if (!root) return null;
+    if (root === reportOne || root === reportTwo) return root;
+
+    let leftChild = lca(root.directReports[0]);
+    let rightChild = lca(root.directReports[1]);
+
+    if (leftChild && rightChild) return root;
+    if (leftChild) return leftChild;
+    if (rightChild) return rightChild;
+
+    return null;
+  }
+
+  return lca(topManager);
+}
+
+// for n-ary trees
 function getLowestCommonManager(topManager, reportOne, reportTwo) {
   function lca(root) {
     if (!root) return null;
