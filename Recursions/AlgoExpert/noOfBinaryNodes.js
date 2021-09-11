@@ -11,5 +11,18 @@ function countOfBinarySearchTree(n) {
   }
   return arr[n];
 }
+function countOfBinarySearchTreeRecursive(n, cache = {}) {
+  if (n === 0 || n === 1) return 1;
+  if (n in cache) return cache[n];
+  let result = 0;
+  for (let j = 0; j < n; j++) {
+    result +=
+      countOfBinarySearchTree(j, cache) *
+      countOfBinarySearchTreeRecursive(n - j - 1, cache);
+  }
+  cache[n] = result;
+  return cache[n];
+}
 
-console.log(countOfBinarySearchTree(5));
+console.log(countOfBinarySearchTree(15));
+console.log(countOfBinarySearchTreeRecursive(15));
