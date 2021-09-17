@@ -47,12 +47,11 @@ function solveSudoku(board) {
             BOXES[boxId].add(num);
             board[i][j] = num;
             backtrack(new_i, new_j);
-            if (!isSolved) {
-              ROWS[i].delete(num);
-              COLS[j].delete(num);
-              BOXES[boxId].delete(num);
-              board[i][j] = 0;
-            }
+            if (isSolved) break;
+            ROWS[i].delete(num);
+            COLS[j].delete(num);
+            BOXES[boxId].delete(num);
+            board[i][j] = 0;
           }
         }
       }
