@@ -1,6 +1,12 @@
 // point 1: Create a hash to capture the characteristics of the 'smallString' - what are the chars and count of its char
 // Use two pointers (left & right - initially pointing to the start of 'bigString' ) and start scanning from left to right
 
+/**
+ *
+ * @param h1 (bigger string)
+ * @param h2 (smaller string)
+ * @return {boolean}
+ */
 function hashesMatching(h1, h2) {
   for (let key in h2) {
     if (key in h1) {
@@ -13,49 +19,89 @@ function hashesMatching(h1, h2) {
   }
   return true;
 }
-
 function smallestSubstringContaining(bigString, smallString) {
-  // start: point 1
-  let hashSmaller = {};
+  const hashSmallString = {};
   for (let char of smallString) {
-    if (char in smallString) {
-      hashSmaller[char] += 1;
+    if (char in hashSmallString) {
+      hashSmallString[char] += 1;
     } else {
-      hashSmaller[char] = 0;
+      hashSmallString[char] = 1;
     }
   }
-  // end: point 1
-  let result = "";
+  const LEFT_BOUNDARY =
+    bigString.length === smallString.length
+      ? bigString.length
+      : bigString.length - smallString.length;
   let [left, right] = [0, 0];
-  let localHash = {};
+  // left should always point to a char that's in smallString
+  while (
+    hashSmallString[bigString[left] === undefined] &&
+    left < LEFT_BOUNDARY
+  ) {
+    left += 1;
+  }
+  if (left === LEFT_BOUNDARY) return "";
+  right = left;
+  // Let's expand by moving the right pointer
+  const hashBiggerString = {};
+  let result = "";
   while (right < bigString.length) {
-    const char = bigString[right];
-    if (char in hashSmaller) {
-      if (char in localHash) {
-        localHash[char] += 1;
+    let char = bigString[right];
+    if (char in hashSmallString) {
+      if (char in hashBiggerString) {
+        hashBiggerString[char] += 1;
       } else {
-        localHash[char] = 0;
+        hashBiggerString[char] = 1;
       }
-    }
-    if (hashesMatching(localHash, hashSmaller)) {
-      const string = bigString.slice(left, right + 1);
-      if (result === "") {
-        result = string;
-      } else {
-        if (string.length < result.length) {
-          result = string;
+      if (hashesMatching(hashBiggerString, hashSmallString)) {
+        let matchedString = bigString.slice(left, right + 1);
+        if (result === "" || matchedString.length < result.length) {
+          result = matchedString;
+        }
+        // start contracting the window by moving left to the right
+        // left will move till the updated window contains the 'smallString'
+        while (left < right) {
+          // remove the current character pointing by left
+          let currentLeftChar = bigString[left];
+          if (currentLeftChar in hashBiggerString) {
+            hashBiggerString[currentLeftChar] -= 1;
+          }
+          left += 1;
+          if (hashesMatching(hashBiggerString, hashSmallString)) {
+            matchedString = bigString.slice(left, right + 1);
+            if (result === "" || matchedString.length < result.length) {
+              result = matchedString;
+            }
+          } else {
+            break;
+          }
         }
       }
-      // move left till it encounters a character that doesn't belong to smallerHash
-      let charAtLeft = bigString[left];
-      while (!(charAtLeft in localHash)) {
-        left += 1;
+    }
+    right += 1;
+  }
+
+  while (left < LEFT_BOUNDARY) {
+    // contract the window and see if there's any better alternative than 'result'
+    if (hashesMatching(hashBiggerString, hashSmallString)) {
+      let matchedString = bigString.slice(left, right + 1);
+      if (result === "" || matchedString.length < result.length) {
+        result = matchedString;
+      }
+      // remove the current character pointing by left
+      let currentLeftChar = bigString[left];
+      if (currentLeftChar in hashBiggerString) {
+        hashBiggerString[currentLeftChar] -= 1;
       }
       left += 1;
-      right += 1;
     } else {
-      // move right
-      right += 1;
+      left += 1;
     }
   }
+  return result;
 }
+
+const bigString = "ADOBECODEBANC";
+const smallerString = "ABC";
+
+console.log(smallestSubstringContaining(bigString, smallerString));
