@@ -14,7 +14,7 @@ function reverseWord(word) {
 function reverseWordsInString(string) {
   // base case
   if (string.length === 0) return "";
-  let wordRegex = /[^\s]+/g;
+  let wordRegex = /[^\s]+/g; // selecting all words (non-whitespace characters)
 
   // reverse all letters of the string
   let [i, j] = [0, string.length - 1];
@@ -24,8 +24,6 @@ function reverseWordsInString(string) {
     j -= 1;
   }
   reverseString = reverseString.join("");
-
-  console.log(reverseString);
 
   // reverse all words in the reversed string
   let words = reverseString.match(wordRegex);
